@@ -12,6 +12,7 @@ function calculate() {
 
     const gcdResult = calculateGCD(numbersArray);
     const lcmResult = calculateLCM(numbersArray);
+    const factorizations = calculatePrimeFactorizations(numbersArray);
 
 // display result 
     const resultElement = document.getElementById("result_wrapper");
@@ -26,6 +27,18 @@ function calculate() {
             <h4> ${lcmResult} </h4> 
           </div>
       </div>`;
+
+  // factorizations display 
+    const factorizationsElement = document.getElementById('factorizations');   
+      //init
+      let factorizedNums = '';
+      
+      for (let i = 0; i < numbersArray.length; i++) {
+        factorizedNums += `
+          ${numbersArray[i]} = ${factorizations[i]}<br>`;
+      }
+     
+    factorizationsElement.innerHTML =`<div class="result"> ${factorizedNums} </div>`; 
 }
 
 function calculateGCD(numbers) {
@@ -50,4 +63,31 @@ function gcd(a, b) {
 
 function lcm(a, b) {
     return (a * b) / gcd(a, b);
+}
+
+//factorizations 
+function calculatePrimeFactorizations(numbers) {
+    const factorizations = [];
+    for (let i = 0; i < numbers.length; i++) {
+        factorizations.push(getPrimeFactorization(numbers[i]));
+    }
+    return factorizations;
+}
+
+function getPrimeFactorization(number) {
+    let factorization = '';
+    let divisor = 2;
+
+    while (number > 1) {
+        if (number % divisor === 0) {
+            factorization += divisor + ' ';
+            number /= divisor;
+        } else {
+            divisor++;
+        }
+    }
+    
+    const factors = factorization.trim().split(' ');
+    
+    return factors.join(' &times; ');
 }
