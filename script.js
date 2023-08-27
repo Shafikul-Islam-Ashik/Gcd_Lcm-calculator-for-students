@@ -1,5 +1,8 @@
 function calculate() {
+  // get input value
     const numbersInput = document.getElementById('numbers').value;
+    
+    // numbers into array
     const numbersArray = numbersInput.split(',').map(num => parseInt(num.trim()));
 
     if (numbersArray.length < 2) {
@@ -10,8 +13,19 @@ function calculate() {
     const gcdResult = calculateGCD(numbersArray);
     const lcmResult = calculateLCM(numbersArray);
 
-    const resultElement = document.getElementById('result');
-    resultElement.innerHTML = `GCD: ${gcdResult}<br>LCM: ${lcmResult}`;
+// display result 
+    const resultElement = document.getElementById("result_wrapper");
+    resultElement.innerHTML = `
+        <div class="result">
+           <div class="gcd">
+                <h4>GCD :</h4>
+                <h4>${gcdResult}</h4>
+           </div> 
+          <div class = "lcm">
+            <h4>LCM :</h4>
+            <h4> ${lcmResult} </h4> 
+          </div>
+      </div>`;
 }
 
 function calculateGCD(numbers) {
